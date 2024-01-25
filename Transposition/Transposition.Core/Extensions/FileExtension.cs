@@ -1,15 +1,17 @@
 ﻿using Newtonsoft.Json;
+using System.IO;
 using Transposition.Core.Models;
 
 namespace Transposition.Core.Extensions
 {
     public static class FileExtension
     {
-        public static NotesToTranspose GetNotesToFromJson(string path)
+        public static NotesToTranspose GetNotesToTransponseFromJson(string path)
         {
+            string inputFilePath = $"{Directory.GetCurrentDirectory()}{path}";
             try
             {
-                string jsonContent = File.ReadAllText(path);
+                string jsonContent = File.ReadAllText(inputFilePath);
                 NotesToTranspose notesToTranspose = JsonConvert.DeserializeObject<NotesToTranspose>(jsonContent);
                 return notesToTranspose;
             }
@@ -35,6 +37,13 @@ namespace Transposition.Core.Extensions
             }
 
             return null;
+        }
+
+        public static void WriteTransponsedNotesToJson(this List<Note> transposedNotes, string outputPath)
+        {
+            string outputFilePath = $"{Directory.GetCurrentDirectory()}{outputPath}";
+            string jsonContent = JsonConvert.SerializeObject(transposedNotes, Formatting.Indented);
+            File.WriteAllText(outputFilePath, jsonContent);
         }
     }
 }
