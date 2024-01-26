@@ -65,5 +65,19 @@ namespace Transposition.Core.Models
                 return MaxNotesInFullOctave;
             }
         }
+
+        public static Note FromArray(int[] array)
+        {
+            if (array == null || array.Length != 2)
+            {
+                throw new ArgumentException("Invalid array for Note deserialization.");
+            }
+
+            return new Note
+            {
+                OctaveNumber = array[0],
+                NoteNumber = array[1]
+            };
+        }
     }
 }

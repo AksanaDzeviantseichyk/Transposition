@@ -10,7 +10,7 @@ namespace Transposition.Core
             foreach (var note in notesToTranspose.Notes) 
             {
                 var newNote = note.NoteNumber + notesToTranspose.NumberSemitones;
-                if(newNote <= 12)
+                if(newNote>= 1 && newNote <= 12)
                 {
                     transponsedNotes.Add(
                         new Note
@@ -25,7 +25,7 @@ namespace Transposition.Core
                         new Note
                         {
                             OctaveNumber = note.OctaveNumber - 1,
-                            NoteNumber = newNote,
+                            NoteNumber = 12 + newNote,
                         });
                 }
                 else
@@ -34,7 +34,7 @@ namespace Transposition.Core
                         new Note
                         {
                             OctaveNumber = note.OctaveNumber + 1,
-                            NoteNumber = newNote,
+                            NoteNumber = newNote - 12,
                         });
                 }
                 

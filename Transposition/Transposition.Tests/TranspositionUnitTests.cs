@@ -6,12 +6,12 @@ namespace Transposition.Tests
 {
     public class TranspositionUnitTests
     {
-        [TestCase("\\TestData\\test1.json")]
-        public void Test1(string path)
+        [TestCase("\\TestData\\test1.json", "\\TestData\\outputTest1.json")]
+        public void Test1(string inputFilePath, string outputFilePath)
         {
-            var notesToTransponse = FileExtension.GetNotesToTransponseFromJson(path);
+            var notesToTransponse = FileExtension.GetNotesToTransponseFromJson($"{Directory.GetCurrentDirectory()}{inputFilePath}");
             var transponsedNotes = notesToTransponse.GetTransponsedNotes();
-            transponsedNotes.WriteTransponsedNotesToJson("\\TestData\\outputTest1.json");
+            transponsedNotes.WriteTransponsedNotesToJson($"{Directory.GetCurrentDirectory()}{outputFilePath}");
             Assert.Pass();
         }
     }

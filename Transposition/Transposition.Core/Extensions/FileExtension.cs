@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.IO;
+using System.Net.Http.Json;
 using Transposition.Core.Models;
 
 namespace Transposition.Core.Extensions
@@ -8,12 +9,11 @@ namespace Transposition.Core.Extensions
     {
         public static NotesToTranspose GetNotesToTransponseFromJson(string path)
         {
-            string inputFilePath = $"{Directory.GetCurrentDirectory()}{path}";
             try
             {
-                string jsonContent = File.ReadAllText(inputFilePath);
-                NotesToTranspose notesToTranspose = JsonConvert.DeserializeObject<NotesToTranspose>(jsonContent);
-                return notesToTranspose;
+                string jsonContent = File.ReadAllText(path);
+                return JsonConvert.DeserializeObject <NotesToTranspose>(jsonContent);
+
             }
             catch (FileNotFoundException ex)
             {
@@ -41,9 +41,8 @@ namespace Transposition.Core.Extensions
 
         public static void WriteTransponsedNotesToJson(this List<Note> transposedNotes, string outputPath)
         {
-            string outputFilePath = $"{Directory.GetCurrentDirectory()}{outputPath}";
             string jsonContent = JsonConvert.SerializeObject(transposedNotes, Formatting.Indented);
-            File.WriteAllText(outputFilePath, jsonContent);
+            File.WriteAllText(outputPath, jsonContent);
         }
     }
 }
