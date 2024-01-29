@@ -30,11 +30,13 @@ namespace Transposition.Core
                 }
                 else
                 {
+                    var octave = newNote % 12 == 0 ? note.OctaveNumber + (newNote / 12) - 1 : note.OctaveNumber + newNote / 12;
+                    var n = newNote % 12;
                     transponsedNotes.Add(
                         new Note
                         {
-                            OctaveNumber = note.OctaveNumber + notesToTranspose.NumberSemitones / 12,
-                            NoteNumber = note.NoteNumber + notesToTranspose.NumberSemitones % 12,
+                            OctaveNumber = newNote % 12 == 0 ? note.OctaveNumber + (newNote / 12) - 1 : note.OctaveNumber + newNote / 12,
+                            NoteNumber = newNote % 12 == 0 ? 12 : newNote % 12,
                         });
                 }
                 
