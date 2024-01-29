@@ -41,8 +41,31 @@ namespace Transposition.Core.Extensions
 
         public static void WriteTransponsedNotesToJson(this List<Note> transposedNotes, string outputPath)
         {
-            string jsonContent = JsonConvert.SerializeObject(transposedNotes, Formatting.Indented);
-            File.WriteAllText(outputPath, jsonContent);
+            try
+            {
+                string jsonContent = JsonConvert.SerializeObject(transposedNotes, Formatting.Indented);
+                File.WriteAllText(outputPath, jsonContent);
+            }
+            catch (FileNotFoundException ex)
+            {
+                Console.WriteLine($"File not found: {ex.Message}");
+            }
+            catch (DirectoryNotFoundException ex)
+            {
+                Console.WriteLine($"Directory not found: {ex.Message}");
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine($"I/O error during file reading: {ex.Message}");
+            }
+            catch (JsonException ex)
+            {
+                Console.WriteLine($"Error deserializing JSON: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Unexpected error: {ex.Message}");
+            }
         }
     }
 }

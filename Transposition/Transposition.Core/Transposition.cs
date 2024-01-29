@@ -24,8 +24,8 @@ namespace Transposition.Core
                     transponsedNotes.Add(
                         new Note
                         {
-                            OctaveNumber = note.OctaveNumber - 1,
-                            NoteNumber = 12 + newNote,
+                            OctaveNumber = note.OctaveNumber - (Math.Abs(newNote) / 12 + 1),
+                            NoteNumber = 12 - Math.Abs(newNote) % 12,
                         });
                 }
                 else
@@ -33,8 +33,8 @@ namespace Transposition.Core
                     transponsedNotes.Add(
                         new Note
                         {
-                            OctaveNumber = note.OctaveNumber + 1,
-                            NoteNumber = newNote - 12,
+                            OctaveNumber = note.OctaveNumber + notesToTranspose.NumberSemitones / 12,
+                            NoteNumber = note.NoteNumber + notesToTranspose.NumberSemitones % 12,
                         });
                 }
                 
